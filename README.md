@@ -31,7 +31,7 @@
 The Angular 13 frontend app is based on the [ngx-admin](https://github.com/akveo/ngx-admin) starter kit.  
 
 ![image](https://user-images.githubusercontent.com/7531596/148551080-de61fdb5-ffa4-496e-a26b-4bbf9dd35e9e.png)
-
+![image](https://user-images.githubusercontent.com/7531596/Screenshot 2022-08-22 143404.png)
 
 ## Installation
 
