@@ -24,3 +24,30 @@
       });
     }
   }
+
+
+
+
+// correct way of calling axios
+  async mergeChildFileComponentsByChildId(body): Promise<any> {
+    let results = axios.post('http://43.204.82.5:5000/merge_components',{
+      parent_id: 'dfgkgfdg' //body.parent_file_id,
+    })
+      .then(function (response) {
+        return response.data
+      })
+      .catch(function (error) {
+        return error.message
+      });
+    return results;
+  }
+  
+  //simplest way always send res.data to avoid circular data error
+  try {
+      let results = await axios.post('http://43.204.82.5:5000/merge_components', {
+        parent_id: 'dfgkgfdg' //body.parent_file_id,
+      })
+      return results.data;
+    } catch (error) {
+      return error.message;
+    }
