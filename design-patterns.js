@@ -51,3 +51,40 @@
     } catch (error) {
       return error.message;
     }
+
+
+
+
+
+// Before and After
+
+
+  this.SourceData2.forEach((element: any) => {
+                let payLoadObject = {};
+                payLoadObject['id_'] = element._id;
+                payLoadObject['name'] = element.component_object.name;
+                let payLoadObjectForBrandName = {};
+                payLoadObjectForBrandName['id_'] = element._id;
+                payLoadObjectForBrandName['name'] = !(element.component_object.maker_brand) ? '' : element.component_object.maker_brand;
+                this.payLoadForUpdateShellComponentSimilarity.push(payLoadObject);
+                this.payLoadForUpdateBrandNameSimilarity.push(payLoadObjectForBrandName);
+              })  
+
+
+ populateDataFormUpdateButtons(data:any){
+    data.forEach((element: any) => {
+      const { _id: id_ , component_object } = element;
+      this.payLoadForUpdateShellComponentSimilarity.push({
+        id_,
+        name: component_object.name ??  '' 
+      });
+      this.payLoadForUpdateBrandNameSimilarity.push({
+        id_,
+        name: component_object.maker_brand ??  '' 
+      });
+      this.payLoadForUpdateMachineryComponent.push({
+        id_,
+        name: component_object.shell_component ?? ''
+      })
+    })
+  }
