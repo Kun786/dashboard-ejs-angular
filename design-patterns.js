@@ -98,3 +98,57 @@
       const getShellComponentLibrary = await this.libShellComponentLibrary.findBy(
         {'ShellComp_Keywords':{$in:"name"}}
       );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+async getShellComponents(payLoad) {
+    try {
+      this.validateRepositoryName('Lib_ShellComponent_Library');
+      const data = await this.dbo.collection('Lib_ShellComponent_Library').find({}).toArray();
+      if (payLoad.length === 0) {
+        return false
+      } else {
+        await payLoad.forEach(async element => {
+          const { id_, name } = element;
+          const getShellComponentLibrary = data.filter( element => element.ShellComp_Keywords === name );
+          if(getShellComponentLibrary.length !== 0){
+            const [firstValue] = getShellComponentLibrary;
+            const updateChildFiles = await this.pmsChildFiles.updateMany(
+              { _id: new ObjectId(id_) },
+              [
+                {
+                  $set: {
+                    "component_object.main_machinery": {
+                      $concat: [
+                        "$component_object.main_machinery",
+                        " , ",
+                        firstValue["Main Machinery"]
+                      ]
+                    }
+                  }
+                }
+              ]
+            )
+          }
+        })
+        return true
+      }
+    } catch (error) {
+      return error.message;
+    }
+  }
